@@ -112,4 +112,27 @@ section h2 {
     opacity: 1;
   }
 }
+/* Navigation arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10001; /* Ensure it stays above the overlay */
+  user-select: none;
+}
+
+#lightbox-left-arrow {
+  left: 10px;
+}
+
+#lightbox-right-arrow {
+  right: 10px;
+}
+
+.arrow:hover {
+  color: rgba(255, 255, 255, 0.8); /* Slightly dimmed effect on hover */
+}
 
