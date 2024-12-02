@@ -1,28 +1,50 @@
-// scripts.js
-document.addEventListener('DOMContentLoaded', () => {
-  const images = document.querySelectorAll('.gallery img');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightbox-image');
-  const closeBtn = document.getElementById('close-btn');
+document.addEventListener("DOMContentLoaded", () => {
+  const galleryImages = document.querySelectorAll(".gallery img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const closeBtn = document.getElementById("close-btn");
+  const leftArrow = document.getElementById("lightbox-left-arrow");
+  const rightArrow = document.getElementById("lightbox-right-arrow");
+
+  let currentIndex = 0;
 
   // Open lightbox
-  images.forEach(image => {
-    image.addEventListener('click', () => {
-      lightbox.style.display = 'flex'; // Show lightbox
-      lightboxImage.src = image.src; // Set lightbox image source
-      lightboxImage.alt = image.alt; // Set lightbox image alt text
+  galleryImages.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImage.src = img.src;
+      currentIndex = index;
     });
   });
 
   // Close lightbox
-  closeBtn.addEventListener('click', () => {
-    lightbox.style.display = 'none'; // Hide lightbox
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
   });
 
-  // Close lightbox by clicking outside the image
-  lightbox.addEventListener('click', (e) => {
+  // Navigate left
+  leftArrow.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    lightboxImage.src = galleryImages[currentIndex].src;
+  });
+
+  // Navigate right
+  rightArrow.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    lightboxImage.src = galleryImages[currentIndex].src;
+  });
+
+  // Close lightbox on outside click
+  lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
-      lightbox.style.display = 'none'; // Hide lightbox
+      lightbox.style.display = "none";
+    }
+  });
+
+  // Close lightbox on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      lightbox.style.display = "none";
     }
   });
 });
